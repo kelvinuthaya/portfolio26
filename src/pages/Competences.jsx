@@ -200,8 +200,7 @@ export default function Competences() {
 
   return (
     <section id="competences" className="relative overflow-hidden">
-      <span className="watermark" style={{ fontFamily: "'Ultra Hyper', 'Familjen Grotesk', sans-serif", top: '60px', right: '-40px' }}>SAVOIR-FAIRE</span>
-      <div className="relative max-w-[1280px] mx-auto px-16 pt-24 pb-24">
+<div className="relative max-w-[1280px] mx-auto px-16 pt-24 pb-24">
         <h2 className="font-hyper text-[clamp(44px,6vw,68px)] text-ku-text mb-12 leading-[1.05]" style={{ fontFamily: "'Ultra Hyper', 'Familjen Grotesk', sans-serif", letterSpacing: '0.02em' }}>
           Compétences
         </h2>
@@ -381,7 +380,7 @@ export default function Competences() {
             Compétences techniques
           </h3>
           <p className="font-dm italic text-[14.5px] mb-8" style={{ color: '#5a8fa0' }}>
-            Les outils que je manipule au quotidien, classés par usage.
+            Les outils que je manipule au quotidien.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">

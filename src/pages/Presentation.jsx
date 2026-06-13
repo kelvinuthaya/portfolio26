@@ -59,7 +59,14 @@ function FloatingObject({ obj }) {
         }}
       >
         <div className="float-obj-inner">
-          <img src={`/objets3d/${obj.src}`} alt={obj.alt} loading="lazy" draggable={false} />
+          <img
+              src={`/objets3d/${obj.src}`}
+              alt={obj.alt}
+              loading="lazy"
+              draggable={false}
+              style={{ opacity: 0, transition: 'opacity 0.35s ease' }}
+              onLoad={(e) => { e.currentTarget.style.opacity = '1' }}
+            />
         </div>
       </div>
     </div>
@@ -355,8 +362,7 @@ export default function Presentation() {
 
       {/* ─────────── #formation — Timeline verticale du parcours académique ─────────── */}
       <section id="formation" className="relative overflow-hidden">
-        <span className="watermark" style={{ fontFamily: "'Ultra Hyper', 'Familjen Grotesk', sans-serif", top: '70px', right: '-30px' }}>PARCOURS</span>
-        <div className="relative max-w-[1280px] mx-auto px-16 pt-24 pb-24">
+<div className="relative max-w-[1280px] mx-auto px-16 pt-24 pb-24">
           <h2 className="font-hyper text-[clamp(44px,6vw,68px)] text-ku-text mb-16 leading-[1.05]" style={{ fontFamily: "'Ultra Hyper', 'Familjen Grotesk', sans-serif", letterSpacing: '0.02em' }}>
             Formation
           </h2>

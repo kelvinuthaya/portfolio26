@@ -22,7 +22,7 @@
    Cette règle vient APRÈS @tailwind utilities donc gagne en cas d'égalité de spécificité. */
 .font-hyper { font-family: 'Ultra Hyper', 'Familjen Grotesk', sans-serif; }
 
-/* Police signature — utilisée UNIQUEMENT pour "Kelvin Uthayakumar" dans le hero.
+/* Police signature — utilisée pour "Kelvin Uthayakumar" dans le hero.
    `font-weight: 100 900` (range) → le même fichier matche n'importe quelle valeur de poids
    demandée par la classe Tailwind `font-bold` (700), `font-normal` (400), etc.
    Sans ça, navigateurs comme Safari retombent sur la fallback quand on demande 700. */
@@ -416,4 +416,18 @@ body {
 
   /* Tap target minimum 44 px pour les liens du footer. */
   footer a { min-height: 44px; display: inline-flex; align-items: center; }
+}
+
+/* ─── Navbar responsive — classes custom pour contourner les breakpoints Tailwind
+       qui ne s'activent pas correctement dans certains navigateurs (Safari plein écran). ─── */
+.nav-name    { display: flex; }
+.nav-pills   { display: flex; }
+.nav-socials { display: flex; }
+.nav-burger  { display: none !important; }
+
+@media (max-width: 768px) {
+  .nav-name    { display: none !important; }
+  .nav-pills   { display: none !important; }
+  .nav-socials { display: none !important; }
+  .nav-burger  { display: inline-flex !important; }
 }

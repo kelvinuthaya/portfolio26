@@ -27,8 +27,22 @@ const projetsSrc = [
     objectif: 'Conception et développement d\'une Progressive Web App de gestion logistique pour un commerce de proximité, en complément d\'une caisse certifiée NF 525.',
     role: 'Conception de l\'architecture full-stack et développement des modules métier (Ruptures, Approvisionnement, Dashboard, Catalogue), authentification Supabase multi-rôles et intégration d\'un parser PDF custom.',
     techs: ['react', 'tailwindcss', 'supabase', 'postgresql'],
-    duree: '7 avril → 31 juillet 2026 (16 semaines)',
+    duree: ' Avril → juillet 2026 (16 semaines)',
     stack: ['React 18', 'Vite', 'Tailwind v3', 'Supabase', 'PostgreSQL', 'ZXing', 'jsPDF', 'Recharts'],
+  },
+  {
+    id: 'fmtm',
+    type: 'Projet perso',
+    year: '2026',
+    sortKey: 2026.65,
+    titre: 'FMTM',
+    objectif: 'Application web de coaching sportif personnel : planification des entraînements, minuteur de séance interactif et suivi nutritionnel personnalisé.',
+    role: 'Développeur full-stack : conception, design et développement.',
+    techs: ['react', 'typescript', 'tailwindcss'],
+    equipe: 'Projet personnel',
+    duree: 'Avril 2026 — en cours',
+    stack: ['React 18', 'Vite', 'Tailwind CSS', 'React Router v6', 'localStorage', 'Lucide React'],
+    primary: { label: 'Github', href: 'https://github.com/kelvinuthaya/FMTM' },
   },
   {
     id: 'trackstar-lofi',
@@ -40,7 +54,7 @@ const projetsSrc = [
     role: 'Seul développeur : paysage urbain nocturne, McLaren P1, étoiles, arbres — 100 % vectoriel/procédural, zéro asset externe.',
     resultat: 'Scène fluide à FPS fixe, musique lofi intégrée, parallaxe multi-plans, rapport technique livré.',
     techs: ['python'],
-    duree: 'Semestre 6',
+    duree: 'Semestre 6 (2025-2026)',
     stack: ['Python', 'Pygame', 'Primitives géométriques', 'Canvas Cycle (inspiration)'],
     primary: { label: 'Github', href: 'https://github.com/kelvinuthaya/trackstar_city' },
   },
@@ -55,7 +69,7 @@ const projetsSrc = [
     resultat: 'Dossier Entrepreneurial complet + maquette MVP + objectif SMART (beta 3 mois, complétion ≥ 70 %).',
     techs: ['figma'],
     equipe: '4 personnes',
-    duree: 'Semestre 6',
+    duree: 'Semestre 6 (2025-2026)',
     stack: ['SWOT', 'BMC', 'SMART', 'Ahrefs', 'Google Maps API', 'Lean Startup'],
     primary: { label: 'Voir le dossier', href: '/linkup.pdf' },
   },
@@ -70,7 +84,7 @@ const projetsSrc = [
     resultat: 'Programme fonctionnel, rapport individuel "Risques IA : Environnement"',
     techs: ['python'],
     equipe: 'Équipe KEYRIL',
-    duree: 'Semestre 6',
+    duree: 'Semestre 6 (2025-2026)',
     stack: ['Python', 'matplotlib', 'ChatGPT', 'Copilot', 'Gemini', 'Mistral'],
     primary: { label: 'Github', href: 'https://github.com/404reo01/SAE_S6' },
   },
@@ -99,8 +113,8 @@ const projetsSrc = [
     role: 'Seul développeur : flux OAuth 2.0, requêtes API Spotify, traitement Python, interface NiceGUI.',
     resultat: 'Outil personnel fonctionnel — sandbox pour explorer les APIs OAuth et la data viz Python.',
     techs: ['python'],
-    equipe: 'Individuel',
-    duree: 'Projet personnel',
+    equipe: 'Projet personnel',
+    duree: 'Octobre 2025 → en cours',
     stack: ['Python', 'API Spotify', 'OAuth 2.0', 'NiceGUI'],
   },
   {
@@ -114,7 +128,7 @@ const projetsSrc = [
     resultat: 'Base CSV de brevets enrichis + dashboard Streamlit interactif livré au commanditaire Thales.',
     techs: ['python', 'pandas'],
     equipe: '5 personnes',
-    duree: '~8 semaines, S3',
+    duree: 'Semestre 3 (2024-2025)',
     stack: ['Python', 'BeautifulSoup', 'pandas', 'Streamlit', 'Plotly', 'Mistral via Groq', 'HuggingFace'],
     primary: { label: 'Voir la démo', href: 'https://aadmsi.streamlit.app' },
   },
@@ -129,7 +143,7 @@ const projetsSrc = [
     resultat: 'Rapport d\'entretien + questionnaire 20 questions + notebooks Jupyter d\'analyse pour 30 diplômés cibles.',
     techs: ['python', 'pandas', 'jupyter'],
     equipe: '3 personnes',
-    duree: 'Semestre 3',
+    duree: 'Semestre 3 (2024-2025)',
     stack: ['Google Forms', 'Google Sheets', 'Python', 'Pandas', 'matplotlib'],
   },
   {
@@ -143,7 +157,7 @@ const projetsSrc = [
     resultat: 'Application web éducative livrée le matin même, présentée au jury, conduite sous pression réussie.',
     techs: ['html5', 'css3', 'javascript'],
     equipe: '11 personnes',
-    duree: 'Une nuit (décembre)',
+    duree: 'Décembre 2024',
     stack: ['HTML5', 'CSS3', 'JavaScript'],
   },
 ]
@@ -369,8 +383,7 @@ export default function Projets() {
 
   return (
     <section id="projets" className="relative overflow-hidden">
-      <span className="watermark" style={{ fontFamily: "'Ultra Hyper', 'Familjen Grotesk', sans-serif", top: '60px', right: '-40px' }}>PROJETS</span>
-      <div className="relative pt-24 pb-24">
+<div className="relative pt-24 pb-24">
         <div className="max-w-[1280px] mx-auto px-16 mb-10 flex items-end justify-between gap-4 flex-wrap">
           <h2 className="font-hyper text-[clamp(44px,6vw,68px)] text-ku-text leading-[1.05]" style={{ fontFamily: "'Ultra Hyper', 'Familjen Grotesk', sans-serif", letterSpacing: '0.02em' }}>
             Projets

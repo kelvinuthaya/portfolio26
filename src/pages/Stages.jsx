@@ -137,8 +137,7 @@ export default function Stages() {
 
   return (
     <section id="stages" className="relative overflow-hidden">
-      <span className="watermark" style={{ fontFamily: "'Ultra Hyper', 'Familjen Grotesk', sans-serif", top: '60px', right: '-30px' }}>TERRAIN</span>
-      <div className="relative max-w-[1280px] mx-auto px-16 pt-24 pb-24">
+<div className="relative max-w-[1280px] mx-auto px-16 pt-24 pb-24">
         <h2 className="font-hyper text-[clamp(44px,6vw,68px)] text-ku-text mb-10 leading-[1.05]" style={{ fontFamily: "'Ultra Hyper', 'Familjen Grotesk', sans-serif", letterSpacing: '0.02em' }}>
           Stages
         </h2>

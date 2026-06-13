@@ -1,7 +1,7 @@
 // Bilan.jsx — Section #bilan : synthèse finale du parcours BUT 3.
 //
 // Structure :
-//   1. Intro narrative (un paragraphe).
+//   1. Intro narrative (deux paragraphes).
 //   2. Trois cards Points forts / Vigilances / Acquis — chacune avec la couleur
 //      d'une section du portfolio (vert stages, rouge compétences, violet projets).
 //   3. Section "Et après ?" — projection master + alternance + 2 cards info.
@@ -15,11 +15,11 @@ const colonnes = [
   {
     title: 'Points forts identifiés',
     items: [
-      'Full-stack React / Supabase opérationnel',
-      'Capacité à livrer en contexte réel',
-      'Profil cross-disciplinaire santé + tech',
-      'Autonomie et prise d\'initiative',
-      'Communication inter-profils tech / non-tech',
+      'Profil hybride santé et informatique, rare et assumé',
+      'Capacité à livrer un produit complet en conditions réelles',
+      'Posture de chef de projet récurrente, du cadrage à la soutenance',
+      'Autonomie forte : savoir avancer sans cadre imposé',
+      'Aisance à dialoguer avec des interlocuteurs techniques et non techniques',
     ],
     // Vert — couleur de la section Stages (le terrain où ces forces se sont prouvées).
     bg: 'linear-gradient(160deg, rgba(46,168,106,0.18) 0%, rgba(46,168,106,0.08) 100%)',
@@ -30,10 +30,10 @@ const colonnes = [
   {
     title: 'Points de vigilance',
     items: [
-      'Tests automatisés à renforcer',
-      'Documentation à écrire tôt',
-      'DevOps / CI-CD à approfondir',
-      'Algorithmique avancée à consolider',
+      'Ancrer les tests automatisés comme un réflexe, pas une option',
+      'Documenter au fil de l\'eau plutôt qu\'en fin de projet',
+      'Approfondir les pratiques DevOps et l\'intégration continue',
+      'Continuer à consolider les bases d\'algorithmique avancée',
     ],
     // Rouge — couleur de la section Compétences (ce qu'il reste à travailler).
     bg: 'linear-gradient(160deg, rgba(224,71,106,0.16) 0%, rgba(224,71,106,0.07) 100%)',
@@ -44,11 +44,11 @@ const colonnes = [
   {
     title: 'Acquis pour la suite',
     items: [
-      'Cadrer le périmètre des missions dès le début',
-      'Tests en parallèle du développement',
-      'Docs architecture = acte de collaboration',
-      'IA comme outil, pas comme oracle',
-      'Sécurité par conception, pas en option',
+      'Cadrer le périmètre d\'un projet avant de se lancer',
+      'Faire de la documentation un véritable acte de collaboration',
+      'Penser la sécurité dès la conception, pas après coup',
+      'Utiliser l\'IA comme un outil de travail, jamais comme une vérité',
+      'Tenir un engagement même quand les priorités bougent',
     ],
     // Violet — couleur de la section Projets (les futurs projets qui en bénéficieront).
     bg: 'linear-gradient(160deg, rgba(124,77,204,0.16) 0%, rgba(124,77,204,0.07) 100%)',
@@ -61,18 +61,22 @@ const colonnes = [
 export default function Bilan() {
   return (
     <section id="bilan" className="relative overflow-hidden">
-      <span className="watermark" style={{ fontFamily: "'Ultra Hyper', 'Familjen Grotesk', sans-serif", top: '60px', right: '-30px' }}>BILAN</span>
-      <div className="relative max-w-[1280px] mx-auto px-16 pt-24 pb-24">
+<div className="relative max-w-[1280px] mx-auto px-16 pt-24 pb-24">
         <h2 className="font-hyper text-[clamp(44px,6vw,68px)] text-ku-text mb-12 leading-[1.05]" style={{ fontFamily: "'Ultra Hyper', 'Familjen Grotesk', sans-serif", letterSpacing: '0.02em' }}>
           Bilan
         </h2>
 
-        <div className="max-w-[760px] font-dm text-[16px] leading-[1.85] text-ku-body mb-14">
+        <div className="max-w-[760px] font-dm text-[16px] leading-[1.85] text-ku-body mb-14 space-y-4">
           <p>
-            Ces trois années de BUT Informatique ont constitué une transformation profonde de mon
-            rapport à la technique et au projet. Je suis entré dans ce cursus avec une culture de la
-            santé et un intérêt pour les données ; j&apos;en sors avec des outils concrets pour agir sur
-            ces deux champs simultanément.
+            Ces trois années de BUT Informatique ont changé en profondeur ma façon de travailler et de
+            mener un projet. Je suis arrivé dans cette formation avec une culture de la santé et un goût
+            pour la donnée. J&apos;en ressors avec des outils concrets pour agir sur ces deux terrains à la fois.
+          </p>
+          <p>
+            Au fil des SAÉ et des deux stages, j&apos;ai surtout appris à prendre les choses en main. Coordonner
+            une équipe, cadrer un besoin flou, livrer sous contrainte, dialoguer avec des profils très différents :
+            ce sont ces compétences de conduite et d&apos;autonomie qui structurent aujourd&apos;hui ma façon de
+            travailler, autant que la technique elle-même.
           </p>
         </div>
 
@@ -114,15 +118,16 @@ export default function Bilan() {
 
           <div className="max-w-[760px] font-dm text-[16px] leading-[1.85] text-ku-body space-y-4 mb-8">
             <p>
-              La trajectoire que j&apos;imagine pour la suite est claire : intégrer le{' '}
+              La suite que j&apos;imagine est claire : intégrer le{' '}
               <strong className="text-accent font-semibold">Master Informatique Biomédicale</strong> à
               Sorbonne Paris Nord, pour continuer à construire à l&apos;intersection du soin et du logiciel.
             </p>
             <p>
-              À plus long terme : interopérabilité des systèmes de santé, exploitation des données cliniques,
-              ingénierie des logiciels médicaux. Des sujets qui nécessitent à la fois une solide culture
-              technique et une compréhension fine des enjeux cliniques, réglementaires et humains du secteur
-              de la santé, un équilibre que je suis déterminé à cultiver.
+              À plus long terme, je veux travailler sur l&apos;interopérabilité des systèmes de santé,
+              l&apos;exploitation des données cliniques et l&apos;ingénierie des logiciels médicaux. Des sujets
+              qui demandent à la fois une vraie culture technique et une bonne compréhension des enjeux
+              cliniques, réglementaires et humains du secteur. C&apos;est exactement cet équilibre que mon
+              parcours m&apos;a préparé à cultiver.
             </p>
           </div>
 
