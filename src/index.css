@@ -1,0 +1,419 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   index.css — Styles globaux du portfolio (Frutiger Aero).
+
+   Organisation :
+   1. Variables CSS dans :root        → palette, surfaces vitrées, gradients, btn.
+   2. Overrides scoped par section    → #competences/#projets/#stages/#bilan
+                                        changent --accent / --btn-bg pour leur teinte.
+   3. Reset, body, scrollbar globale.
+   4. Keyframes : fadeUp (chargement), blobFloat (hero), marqueeScroll est obsolète.
+   5. Composants utilitaires           : .watermark, .tech-tile(--lg), .comp-row,
+                                         .proj-card, .proj-viewport/track/slot,
+                                         .explorer-card, etc.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Override de la classe Tailwind `font-hyper` : Tailwind/cssnano retire les guillemets au build
+   (`Ultra Hyper, Familjen Grotesk, sans-serif`) et certains navigateurs (Safari notamment) ne
+   résolvent pas correctement les family-names multi-mots sans quotes → fallback silencieux.
+   Cette règle vient APRÈS @tailwind utilities donc gagne en cas d'égalité de spécificité. */
+.font-hyper { font-family: 'Ultra Hyper', 'Familjen Grotesk', sans-serif; }
+
+/* Police signature — utilisée UNIQUEMENT pour "Kelvin Uthayakumar" dans le hero.
+   `font-weight: 100 900` (range) → le même fichier matche n'importe quelle valeur de poids
+   demandée par la classe Tailwind `font-bold` (700), `font-normal` (400), etc.
+   Sans ça, navigateurs comme Safari retombent sur la fallback quand on demande 700. */
+@font-face {
+  font-family: 'Ultra Hyper';
+  src: url('/fonts/UltraHyper-Regular.otf') format('opentype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Ultra Hyper';
+  src: url('/fonts/UltraHyper-Italic.otf') format('opentype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  --bg:           #e0eff5;
+  --bg-gradient:  radial-gradient(ellipse 55% 45% at 85% 5%,  rgba(170,225,255,0.65) 0%, transparent 65%),
+                  radial-gradient(ellipse 45% 55% at 5%  90%, rgba(150,225,190,0.45) 0%, transparent 60%),
+                  radial-gradient(ellipse 35% 35% at 45% 45%, rgba(210,240,255,0.25) 0%, transparent 70%);
+
+  --surface:       rgba(255,255,255,0.45);
+  --surface-nav:   rgba(255,255,255,0.40);
+  --surface-quote: rgba(255,255,255,0.38);
+  --border-glass:  rgba(255,255,255,0.82);
+  --border-divider:rgba(255,255,255,0.70);
+  --inset-shine:   inset 0 1px 0 rgba(255,255,255,0.90);
+
+  --text:          #0a1a24;
+  --text-body:     #2a5060;
+  --text-soft:     #2d5566;
+  --text-muted:    #5a8fa0;
+
+  --accent:        #1a7090;
+  --accent-light:  #3bbfd8;
+
+  --btn-bg:        linear-gradient(145deg, #3ec8e0 0%, #1a8aaa 50%, #0f6888 100%);
+  --btn-shadow:    0 3px 14px rgba(26,138,170,0.38);
+
+  /* Hub couleurs — une teinte par section "contenu". L'aqua reste pour hero, intro, navbar. */
+  --c-comp:        #e0476a;  /* Compétences — rouge */
+  --c-comp-light:  #ee6b88;
+  --c-comp-deep:   #a8203e;
+  --c-comp-shadow: rgba(224, 71, 106, 0.38);
+
+  --c-proj:        #7c4dcc;  /* Projets — violet */
+  --c-proj-light:  #9a73e0;
+  --c-proj-deep:   #5526a0;
+  --c-proj-shadow: rgba(124, 77, 204, 0.38);
+
+  --c-stages:      #2ea86a;  /* Stages — vert */
+  --c-stages-light:#4dc88e;
+  --c-stages-deep: #1a6840;
+  --c-stages-shadow: rgba(46, 168, 106, 0.38);
+
+  --c-bilan:       #e08a2a;  /* Bilan — orange */
+  --c-bilan-light: #f0a850;
+  --c-bilan-deep:  #a8601a;
+  --c-bilan-shadow: rgba(224, 138, 42, 0.38);
+
+  --retro-green-bg:    rgba(200,245,220,0.55);
+  --retro-green-border:rgba(100,210,150,0.30);
+  --retro-green-title: #1a7a4a;
+  --retro-green-text:  #1a4a30;
+
+  --retro-amber-bg:    rgba(255,235,190,0.50);
+  --retro-amber-border:rgba(220,170,80,0.25);
+  --retro-amber-title: #9a6010;
+  --retro-amber-text:  #6a4010;
+
+  --retro-blue-bg:     rgba(200,235,255,0.50);
+  --retro-blue-border: rgba(80,170,220,0.25);
+  --retro-blue-title:  #1a5a8a;
+  --retro-blue-text:   #0a3050;
+
+  --retro-purple-bg:    rgba(220,205,255,0.45);
+  --retro-purple-border:rgba(150,110,220,0.22);
+  --retro-purple-title: #5a208a;
+  --retro-purple-text:  #3a1060;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+section[id] {
+  scroll-margin-top: 64px;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: var(--bg);
+  background-image: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up   { animation: fadeUp 0.5s ease both; }
+.fade-up-1 { animation: fadeUp 0.5s 0.1s ease both; }
+.fade-up-2 { animation: fadeUp 0.5s 0.2s ease both; }
+.fade-up-3 { animation: fadeUp 0.5s 0.3s ease both; }
+
+@keyframes blobFloat1 {
+  0%   { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.15) translate(40px, -30px); }
+}
+@keyframes blobFloat2 {
+  0%   { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.12) translate(-35px, 28px); }
+}
+
+.blob-anim-1 { animation: blobFloat1 10s ease-in-out infinite alternate; }
+.blob-anim-2 { animation: blobFloat2 12s ease-in-out infinite alternate; }
+
+/* ─── Objets 3D flottants du hero ───────────────────────────────────────────
+   12 PNG positionnés en absolute dans .float-zone qui COUVRE TOUT LE HERO.
+   Layering : .float-zone est en arrière-plan (z-index 1), le contenu hero est devant (z-index 2).
+   pointer-events : none sur la zone (ne bloque pas le scroll/clics) mais auto sur chaque objet
+   pour activer le hover scale.
+
+   Amplitudes : translate ±25px, rotate ±12deg → mouvement bien visible.
+   6 keyframes (a→f) × durations/delays uniques → aucun objet ne se synchronise. */
+@keyframes float-a {
+  from { transform: translate(-10px, -22px) rotate(-10deg); }
+  to   { transform: translate(12px,  18px)  rotate(10deg);  }
+}
+@keyframes float-b {
+  from { transform: translate(8px,  -18px) rotate(8deg);    }
+  to   { transform: translate(-12px, 22px) rotate(-12deg);  }
+}
+@keyframes float-c {
+  from { transform: translate(-6px,  20px) rotate(6deg);    }
+  to   { transform: translate(11px, -25px) rotate(-9deg);   }
+}
+@keyframes float-d {
+  from { transform: translate(-12px, 6px)  rotate(-6deg);   }
+  to   { transform: translate(10px, -23px) rotate(11deg);   }
+}
+@keyframes float-e {
+  from { transform: translate(4px,  -20px) rotate(-3deg);   }
+  to   { transform: translate(-9px,  25px) rotate(-12deg);  }
+}
+@keyframes float-f {
+  from { transform: translate(-8px, -12px) rotate(12deg);   }
+  to   { transform: translate(11px,  20px) rotate(-8deg);   }
+}
+
+/* Zone des objets — couvre tout le hero, derrière le contenu (z-index 1 vs 2 sur le contenu).
+   `--mx` et `--my` sont mises à jour par onMouseMove sur le hero (cf. Presentation.jsx) :
+   valeurs unitless dans [-1, +1] correspondant à la position du curseur (centre = 0). */
+.float-zone {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Couche 1 — positionnement absolu + parallaxe (transform piloté par --mx/--my et --depth).
+   La transition rend le suivi de souris fluide ; pointer-events:none → ne capture rien. */
+.float-obj {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.88;
+  user-select: none;
+  --depth: 16px;
+  transform: translate3d(
+    calc(var(--mx, 0) * var(--depth)),
+    calc(var(--my, 0) * var(--depth)),
+    0
+  );
+  transition: transform 0.35s ease-out;
+  will-change: transform;
+}
+
+/* Couche 2 — keyframe de flottement (translate + rotate). Indépendante de la parallaxe
+   du parent : les deux transforms s'additionnent dans la chaîne CSS sans conflit. */
+.float-obj-anim {
+  width: 100%;
+  height: 100%;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  will-change: transform;
+}
+
+/* Couche 3 — image + drop-shadow Frutiger. */
+.float-obj-inner {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 8px 18px rgba(20,100,130,0.22));
+}
+.float-obj-inner img { display: block; width: 100%; height: 100%; }
+
+/* Tablette : opacité réduite. Mobile : on garde 5 objets clés (santé + computer + rocket)
+   et on désactive la parallaxe via --mx/--my forcés à 0 (le pointer:coarse cible le touch). */
+@media (max-width: 1023px) {
+  .float-obj { opacity: 0.78; }
+}
+@media (max-width: 639px) {
+  .float-obj--secondary { display: none; }
+}
+@media (pointer: coarse) {
+  .float-zone { --mx: 0; --my: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .float-obj-anim { animation: none; }
+  .float-zone { --mx: 0; --my: 0; }
+  .float-obj { transition: none; }
+}
+
+/* Léger halo blanc autour du nom pour qu'il reste lisible si un objet flotte derrière. */
+.hero-name-glow {
+  text-shadow: 0 2px 10px rgba(255,255,255,0.65), 0 0 28px rgba(255,255,255,0.35);
+}
+
+.comp-pill { transition: transform 200ms ease, box-shadow 200ms ease; cursor: default; }
+.comp-pill:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(20,100,130,0.20), inset 0 1px 0 rgba(255,255,255,0.90);
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+.watermark {
+  position: absolute;
+  /* Watermark en Ultra Hyper — police signature pour faire écho au nom du hero. */
+  font-family: 'Ultra Hyper', 'Familjen Grotesk', sans-serif;
+  font-size: 150px;
+  line-height: 1;
+  /* Letter-spacing POSITIF : Ultra Hyper est très dense, les glyphes se collent sinon. */
+  letter-spacing: 0.04em;
+  color: rgba(20,100,130,0.07);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.tech-tile {
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(255,255,255,0.85);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(20,100,130,0.07), inset 0 1px 0 rgba(255,255,255,0.90);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+.tech-tile--lg {
+  width: 78px;
+  height: 78px;
+  border-radius: 16px;
+}
+.tech-tile:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 10px 22px rgba(20,100,130,0.18), inset 0 1px 0 rgba(255,255,255,0.95);
+}
+
+/* Explorer cards : remplies du dégradé de leur section (cf. explorerCards dans Presentation.jsx).
+   Au survol on intensifie le halo coloré (--card-shadow porté par la card). */
+.explorer-card:hover {
+  box-shadow: 0 12px 30px var(--card-shadow, rgba(20,100,130,0.18)),
+              inset 0 1px 0 rgba(255,255,255,0.55),
+              inset 0 -1px 0 rgba(0,0,0,0.14);
+}
+.explorer-card:hover .explorer-arrow { opacity: 1; }
+
+.comp-row { transition: padding-left 220ms ease, background 220ms ease; }
+.comp-row:hover { padding-left: 16px; background: linear-gradient(90deg, rgba(255,255,255,0.55), transparent); }
+.comp-row:hover .comp-num { color: var(--accent); }
+.comp-row:hover .comp-arrow { transform: translateX(6px); opacity: 1; }
+
+.proj-card { transition: transform 250ms cubic-bezier(.2,.8,.3,1), box-shadow 250ms ease; }
+.proj-card:hover {
+  transform: translateY(-6px) rotate(-0.5deg);
+  box-shadow: 0 18px 36px rgba(20,100,130,0.18), inset 0 1px 0 rgba(255,255,255,0.95);
+}
+
+/* Carousel projets — pagination à flèches.
+   Viewport = overflow-x:hidden, padding vertical pour absorber le badge année qui dépasse en `top:-10px`.
+   Track = flex translateX, 1 page = 100% viewport + 1 gap. */
+.proj-viewport {
+  position: relative;
+  overflow: hidden;
+  padding: 36px 4px 8px;
+}
+.proj-track {
+  display: flex;
+  gap: 22px;
+  transition: transform 480ms cubic-bezier(.4, 0, .2, 1);
+}
+.proj-slot { flex-shrink: 0; }
+
+/* Overrides d'accent par section — toute couleur var(--accent), var(--btn-bg), var(--accent-light)
+   utilisée à l'intérieur change automatiquement. La classe Tailwind `text-accent` est aussi
+   neutralisée localement. */
+#competences {
+  --accent:        var(--c-comp);
+  --accent-light:  var(--c-comp-light);
+  --btn-bg:        linear-gradient(145deg, var(--c-comp-light) 0%, var(--c-comp) 50%, var(--c-comp-deep) 100%);
+  --btn-shadow:    0 3px 14px var(--c-comp-shadow);
+}
+#projets {
+  --accent:        var(--c-proj);
+  --accent-light:  var(--c-proj-light);
+  --btn-bg:        linear-gradient(145deg, var(--c-proj-light) 0%, var(--c-proj) 50%, var(--c-proj-deep) 100%);
+  --btn-shadow:    0 3px 14px var(--c-proj-shadow);
+}
+#stages {
+  --accent:        var(--c-stages);
+  --accent-light:  var(--c-stages-light);
+  --btn-bg:        linear-gradient(145deg, var(--c-stages-light) 0%, var(--c-stages) 50%, var(--c-stages-deep) 100%);
+  --btn-shadow:    0 3px 14px var(--c-stages-shadow);
+}
+#bilan {
+  --accent:        var(--c-bilan);
+  --accent-light:  var(--c-bilan-light);
+  --btn-bg:        linear-gradient(145deg, var(--c-bilan-light) 0%, var(--c-bilan) 50%, var(--c-bilan-deep) 100%);
+  --btn-shadow:    0 3px 14px var(--c-bilan-shadow);
+}
+/* Tailwind `text-accent` est figé à #1a7090 au build → override par scope CSS gagnant en spécificité. */
+#competences .text-accent { color: var(--c-comp); }
+#projets     .text-accent { color: var(--c-proj); }
+#stages      .text-accent { color: var(--c-stages); }
+#bilan       .text-accent { color: var(--c-bilan); }
+
+
+/* ═════════════════════════════════════════════════════════════════════════════
+   MOBILE — ≤ 768 px UNIQUEMENT.
+   Toutes les règles ici sont isolées dans un @media → desktop > 768 inchangé.
+   ═════════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* Garde-fou contre tout scroll horizontal accidentel. */
+  html, body { overflow-x: hidden; }
+
+  /* Padding horizontal des sections : 64 px (desktop) → 20 px (mobile).
+     Surcharge la classe Tailwind .px-16 utilisée dans tous les conteneurs `max-w-[1280px]`. */
+  .px-16 {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  /* Padding vertical des sections (pt-24/pb-24 = 96 px → 56 px). */
+  section .pt-24 { padding-top: 56px; }
+  section .pb-24 { padding-bottom: 56px; }
+
+  /* Watermarks décoratifs ("PROJETS", "TERRAIN"…) : réduits pour ne pas dominer la section. */
+  .watermark {
+    font-size: 84px;
+    letter-spacing: 0.03em;
+  }
+
+  /* Objets 3D flottants — désactiver toute parallaxe + réduire la taille des images
+     visibles (≈ 65 % de la version desktop). Les positions en % restent identiques mais
+     l'empreinte visuelle est plus modeste. La couche inner porte le scale pour ne pas
+     entrer en conflit avec l'animation translate du parent. */
+  .float-zone { --mx: 0; --my: 0; }
+  .float-obj-inner {
+    transform: scale(0.65);
+    transform-origin: center;
+  }
+
+  /* Accordéon Compétences : le décalage de 116 px sous le numéro disparaît sur mobile. */
+  .comp-row { padding-left: 0 !important; background: none !important; }
+  [class*="pl-[116px]"] { padding-left: 8px; padding-right: 8px; }
+
+  /* Tap target minimum 44 px pour les liens du footer. */
+  footer a { min-height: 44px; display: inline-flex; align-items: center; }
+}

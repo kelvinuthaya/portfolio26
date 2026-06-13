@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Portfolio BUT 3 — Kelvin Uthayakumar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Fraunces:ital,wght@0,300;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0c0e;
+    --surface: #111316;
+    --border: #1e2128;
+    --text: #e8e6e0;
+    --muted: #6b6f7a;
+    --accent: #c8f060;
+    --accent2: #4fd1c5;
+    --accent3: #f0a060;
+    --comp1: #c8f060;
+    --comp2: #4fd1c5;
+    --comp3: #f0a060;
+    --comp4: #c084fc;
+    --comp5: #f472b6;
+    --comp6: #60a5fa;
+    --r: 4px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Mono', monospace;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* ─── NOISE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 48px;
+    background: rgba(11,12,14,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-brand {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  /* ─── SECTIONS ─── */
+  section {
+    padding: 120px 48px 80px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  section + section {
+    border-top: 1px solid var(--border);
+  }
+
+  /* ─── HERO ─── */
+  #hero {
+    padding-top: 160px;
+    padding-bottom: 100px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hero-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-label::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(48px, 7vw, 96px);
+    font-weight: 700;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-subtitle {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 32px;
+    max-width: 520px;
+    line-height: 1.8;
+  }
+
+  .hero-meta {
+    margin-top: 48px;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .hero-tag {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+
+  /* ─── SECTION HEADERS ─── */
+  .section-num {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-num::after {
+    content: '';
+    flex: 1;
+    max-width: 48px;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.5;
+  }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(26px, 4vw, 44px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 48px;
+    line-height: 1.1;
+  }
+
+  h3 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+  }
+
+  /* ─── INTRO PARCOURS ─── */
+  .prose {
+    max-width: 700px;
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.9;
+  }
+
+  .prose p + p { margin-top: 20px; }
+
+  .prose strong {
+    color: var(--accent);
+    font-weight: 400;
+  }
+
+  .prose em {
+    font-style: italic;
+    color: var(--accent2);
+  }
+
+  blockquote {
+    margin: 32px 0;
+    padding: 20px 24px;
+    border-left: 2px solid var(--accent);
+    background: var(--surface);
+    border-radius: 0 var(--r) var(--r) 0;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--text);
+    opacity: 0.9;
+  }
+
+  /* ─── COMPETENCES GRID ─── */
+  .comp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 2px;
+  }
+
+  .comp-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 32px;
+    position: relative;
+    transition: border-color 0.2s, transform 0.2s;
+    cursor: default;
+  }
+
+  .comp-card:hover {
+    border-color: var(--card-accent);
+    transform: translateY(-2px);
+  }
+
+  .comp-num {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    opacity: 0.5;
+  }
+
+  .comp-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    margin-bottom: 4px;
+    color: var(--card-accent);
+  }
+
+  .comp-subtitle {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .comp-body {
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--text);
+    opacity: 0.85;
+  }
+
+  .comp-body p + p { margin-top: 12px; }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 16px;
+  }
+
+  .tag {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 12px;
+    border: 1px solid;
+  }
+
+  .eval-row {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .eval-item {
+    font-size: 11px;
+    padding: 8px 10px;
+    border-radius: var(--r);
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+  }
+
+  .eval-item .eval-label {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: 4px;
+  }
+
+  /* ─── STAGE ─── */
+  .stage-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent3);
+    padding: 40px;
+    border-radius: 0 var(--r) var(--r) 0;
+    margin-bottom: 32px;
+  }
+
+  .stage-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .stage-company {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--accent3);
+  }
+
+  .stage-period {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 12px;
+    align-self: flex-start;
+  }
+
+  .mission-list {
+    list-style: none;
+    margin-top: 16px;
+  }
+
+  .mission-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .mission-list li::before {
+    content: '→';
+    color: var(--accent3);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .retro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 28px;
+  }
+
+  .retro-card {
+    padding: 20px;
+    border-radius: var(--r);
+    border: 1px solid var(--border);
+  }
+
+  .retro-card.green { border-color: rgba(200,240,96,0.3); background: rgba(200,240,96,0.04); }
+  .retro-card.orange { border-color: rgba(240,160,96,0.3); background: rgba(240,160,96,0.04); }
+  .retro-card.blue { border-color: rgba(96,165,250,0.3); background: rgba(96,165,250,0.04); }
+  .retro-card.purple { border-color: rgba(192,132,252,0.3); background: rgba(192,132,252,0.04); }
+
+  .retro-label {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .retro-card.green .retro-label { color: var(--accent); }
+  .retro-card.orange .retro-label { color: var(--accent3); }
+  .retro-card.blue .retro-label { color: var(--comp6); }
+  .retro-card.purple .retro-label { color: var(--comp4); }
+
+  .retro-card ul {
+    list-style: none;
+    font-size: 12px;
+    line-height: 1.9;
+  }
+
+  .retro-card ul li::before {
+    content: '· ';
+    opacity: 0.5;
+  }
+
+  /* ─── CONCLUSION ─── */
+  .conclusion-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+    margin-top: 40px;
+  }
+
+  .concl-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 28px;
+  }
+
+  .concl-icon {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+
+  .concl-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    color: var(--muted);
+  }
+
+  .concl-block ul {
+    list-style: none;
+    font-size: 12px;
+    line-height: 2;
+  }
+
+  .concl-block ul li::before {
+    content: '— ';
+    color: var(--accent);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 48px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+  }
+
+  footer a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    width: 48px;
+    height: 2px;
+    background: var(--accent);
+    margin: 32px 0;
+    opacity: 0.5;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    section { padding: 100px 24px 60px; }
+    .comp-grid { grid-template-columns: 1fr; }
+    .retro-grid { grid-template-columns: 1fr; }
+    .conclusion-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-label, h1, .hero-subtitle, .hero-meta {
+    animation: fadeUp 0.7s ease both;
+  }
+
+  .hero-subtitle { animation-delay: 0.15s; }
+  .hero-meta { animation-delay: 0.25s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#hero">KU Portfolio</a>
+  <ul class="nav-links">
+    <li><a href="#intro">Parcours</a></li>
+    <li><a href="#competences">Compétences</a></li>
+    <li><a href="#stage">Stage</a></li>
+    <li><a href="#conclusion">Bilan</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-label">Portfolio BUT 3 Informatique · 2025–2026</div>
+  <h1>Kelvin<br><em>Uthayakumar</em></h1>
+  <p class="hero-subtitle">
+    Étudiant en troisième année de BUT Informatique à l'Université Sorbonne Paris Nord — IUT de Villetaneuse.<br>
+    Ce portfolio retrace mon développement de compétences sur l'ensemble du cursus, à travers SAÉ, projets et expériences professionnelles.
+  </p>
+  <div class="hero-meta">
+    <span class="hero-tag">Réaliser</span>
+    <span class="hero-tag">Optimiser</span>
+    <span class="hero-tag">Administrer</span>
+    <span class="hero-tag">Gérer</span>
+    <span class="hero-tag">Conduire</span>
+    <span class="hero-tag">Collaborer</span>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section id="intro">
+  <div class="section-num">01 — Introduction</div>
+  <h2>La logique<br>d'un parcours</h2>
+
+  <div class="prose">
+    <p>
+      Mon parcours a la particularité d'être construit à la croisée de deux champs : les <strong>sciences de la santé</strong> et l'<strong>informatique</strong>. Après une licence Sciences Sanitaires et Sociales à Sorbonne Paris Nord, j'ai choisi de me réorienter vers le BUT Informatique, non par rupture, mais par conviction que <em>la technologie peut être un levier de transformation dans les systèmes de santé</em>.
+    </p>
+    <p>
+      Cette bifurcation n'était pas un abandon. C'était une stratégie. Je souhaitais acquérir les outils techniques nécessaires pour travailler, à terme, sur des problèmes qui comptent : la donnée médicale, les outils d'aide à la décision clinique, la digitalisation des parcours de soins. Le Master Informatique Biomédicale à Sorbonne Paris Nord que je vise s'inscrit directement dans cette trajectoire.
+    </p>
+    <p>
+      Ces trois années de BUT m'ont permis de construire une base solide : développement full-stack, gestion de bases de données, conduite de projet, travail en équipe pluridisciplinaire. Le stage chez <strong>Panam'arket</strong> a été l'occasion de consolider ces acquis dans un contexte réel, avec des contraintes métier, des délais courts et une vraie responsabilité sur le produit.
+    </p>
+
+    <blockquote>
+      "Le passage par la santé n'est pas un détour — c'est ce qui donne du sens à l'informatique que je pratique."
+    </blockquote>
+
+    <p>
+      Mes ambitions professionnelles se dessinent autour du développement d'applications dans le secteur de la santé numérique, en alternance dès septembre 2026, avec comme horizon une spécialisation en informatique biomédicale. À plus long terme, je m'intéresse aux questions d'interopérabilité des systèmes de santé, à l'exploitation des données cliniques et à l'ingénierie des logiciels médicaux.
+    </p>
+  </div>
+</section>
+
+<!-- COMPETENCES -->
+<section id="competences">
+  <div class="section-num">02 — Référentiel</div>
+  <h2>Six compétences<br>développées</h2>
+
+  <div class="comp-grid">
+
+    <!-- C1 : RÉALISER -->
+    <div class="comp-card" style="--card-accent: var(--comp1)">
+      <div class="comp-num">Compétence 01</div>
+      <div class="comp-title">Réaliser</div>
+      <div class="comp-subtitle">Développer des applications informatiques simples à complexes</div>
+      <div class="comp-body">
+        <p>Le développement logiciel est le cœur de ma formation. De la conception d'une application mobile Flutter/Dart (TRACKSTAR) à la mise en production d'une PWA full-stack en React/Supabase, j'ai progressivement maîtrisé le cycle complet de développement.</p>
+        <p>La SAÉ TRACKSTAR m'a imposé de structurer un back-end Python avec scikit-learn pour les recommandations musicales. Le projet Panam'arket m'a confronté à des contraintes réelles : parsing de PDFs, architecture de données, gestion des états React.</p>
+        <p><strong>Acquis :</strong> Passer de specs floues à un produit fonctionnel. Rédiger du code lisible et maintenable par d'autres.</p>
+        <p><strong>Vigilance :</strong> Je dois encore approfondir les tests automatisés — ils ont souvent été la première chose sacrifiée sous pression de délai.</p>
+      </div>
+      <div class="tag-row">
+        <span class="tag" style="color: var(--comp1); border-color: var(--comp1)">React</span>
+        <span class="tag" style="color: var(--comp1); border-color: var(--comp1)">Flutter</span>
+        <span class="tag" style="color: var(--comp1); border-color: var(--comp1)">Python</span>
+        <span class="tag" style="color: var(--comp1); border-color: var(--comp1)">Node.js</span>
+        <span class="tag" style="color: var(--comp1); border-color: var(--comp1)">TypeScript</span>
+      </div>
+      <div class="eval-row">
+        <div class="eval-item">
+          <div class="eval-label">SAÉ clé</div>
+          TRACKSTAR · Panam'arket PWA
+        </div>
+        <div class="eval-item">
+          <div class="eval-label">Niveau</div>
+          Autonome sur projets full-stack
+        </div>
+      </div>
+    </div>
+
+    <!-- C2 : OPTIMISER -->
+    <div class="comp-card" style="--card-accent: var(--comp2)">
+      <div class="comp-num">Compétence 02</div>
+      <div class="comp-title">Optimiser</div>
+      <div class="comp-subtitle">Appréhender et construire des algorithmes</div>
+      <div class="comp-body">
+        <p>L'optimisation s'est exprimée de deux façons dans mon cursus : algorithmique pure (complexité, structures de données) et optimisation appliquée au traitement de données volumineuses.</p>
+        <p>Dans le projet THALES, j'ai dû construire un pipeline d'acquisition de données de brevets 6G et générer un dashboard Streamlit. L'enjeu n'était pas que ça fonctionne — il fallait que ça tourne vite et proprement sur des centaines de fichiers Excel.</p>
+        <p>Dans TRACKSTAR, j'ai implémenté une ACP et un K-means pour personnaliser les recommandations. Comprendre pourquoi un algorithme converge (ou pas) m'a appris à lire les résultats de façon critique, pas seulement à les afficher.</p>
+        <p><strong>Vigilance :</strong> Profiler avant d'optimiser. J'ai parfois optimisé des parties non critiques.</p>
+      </div>
+      <div class="tag-row">
+        <span class="tag" style="color: var(--comp2); border-color: var(--comp2)">scikit-learn</span>
+        <span class="tag" style="color: var(--comp2); border-color: var(--comp2)">Pandas</span>
+        <span class="tag" style="color: var(--comp2); border-color: var(--comp2)">ACP / K-means</span>
+        <span class="tag" style="color: var(--comp2); border-color: var(--comp2)">SQL</span>
+      </div>
+      <div class="eval-row">
+        <div class="eval-item">
+          <div class="eval-label">SAÉ clé</div>
+          THALES · TRACKSTAR
+        </div>
+        <div class="eval-item">
+          <div class="eval-label">Niveau</div>
+          Maîtrise des pipelines data
+        </div>
+      </div>
+    </div>
+
+    <!-- C3 : ADMINISTRER -->
+    <div class="comp-card" style="--card-accent: var(--comp3)">
+      <div class="comp-num">Compétence 03</div>
+      <div class="comp-title">Administrer</div>
+      <div class="comp-subtitle">Déployer, configurer et maintenir des systèmes</div>
+      <div class="comp-body">
+        <p>La compétence Administrer a pris son sens le plus concret lors de mon stage chez CFP Group, où j'ai pris en charge la refonte du pôle IT : création de procédures d'onboarding/offboarding, paramétrage Microsoft 365 (Azure AD, Teams, SharePoint), renforcement des accès.</p>
+        <p>Sur mes projets personnels, j'ai appris à déployer des applications sur des environnements contrôlés : configuration de projets Supabase, gestion des variables d'environnement, déploiement continu via GitHub Pages pour le portfolio.</p>
+        <p>La gestion de la sécurité des accès est un fil conducteur : OAuth 2.0 dans Wrap It All!, Row Level Security dans Supabase pour Panam'arket.</p>
+        <p><strong>Acquis :</strong> La sécurité n'est pas une option qu'on ajoute à la fin — elle s'architecture dès le début.</p>
+      </div>
+      <div class="tag-row">
+        <span class="tag" style="color: var(--comp3); border-color: var(--comp3)">Supabase</span>
+        <span class="tag" style="color: var(--comp3); border-color: var(--comp3)">M365 Admin</span>
+        <span class="tag" style="color: var(--comp3); border-color: var(--comp3)">PostgreSQL</span>
+        <span class="tag" style="color: var(--comp3); border-color: var(--comp3)">OAuth 2.0</span>
+      </div>
+      <div class="eval-row">
+        <div class="eval-item">
+          <div class="eval-label">SAÉ clé</div>
+          CFP Group · Panam'arket
+        </div>
+        <div class="eval-item">
+          <div class="eval-label">Niveau</div>
+          Opérationnel sur cloud + sécurité
+        </div>
+      </div>
+    </div>
+
+    <!-- C4 : GÉRER -->
+    <div class="comp-card" style="--card-accent: var(--comp4)">
+      <div class="comp-num">Compétence 04</div>
+      <div class="comp-title">Gérer</div>
+      <div class="comp-subtitle">Concevoir et gérer des bases de données</div>
+      <div class="comp-body">
+        <p>La modélisation des données est une compétence que j'ai travaillée de façon progressive : de la conception MCD/MLD en cours, jusqu'à la mise en œuvre réelle dans PostgreSQL avec des contraintes métier complexes.</p>
+        <p>Pour Panam'arket, j'ai conçu le schéma de base de données du système de suivi des stocks : tables produits, catégories, historiques de ruptures, seuils d'alerte. J'ai dû gérer les relations entre entités, les index pour les requêtes fréquentes, et les politiques de sécurité au niveau des lignes (RLS).</p>
+        <p>La gestion des données dans THALES a mis en lumière une autre dimension : le nettoyage, la normalisation et la traçabilité des sources.</p>
+        <p><strong>Vigilance :</strong> La documentation du schéma est souvent négligée. Si c'était à refaire, je l'écrirais en parallèle du code.</p>
+      </div>
+      <div class="tag-row">
+        <span class="tag" style="color: var(--comp4); border-color: var(--comp4)">PostgreSQL</span>
+        <span class="tag" style="color: var(--comp4); border-color: var(--comp4)">MCD/MLD</span>
+        <span class="tag" style="color: var(--comp4); border-color: var(--comp4)">Supabase RLS</span>
+        <span class="tag" style="color: var(--comp4); border-color: var(--comp4)">SQL avancé</span>
+      </div>
+      <div class="eval-row">
+        <div class="eval-item">
+          <div class="eval-label">SAÉ clé</div>
+          Panam'arket · THALES
+        </div>
+        <div class="eval-item">
+          <div class="eval-label">Niveau</div>
+          Conception et exploitation autonome
+        </div>
+      </div>
+    </div>
+
+    <!-- C5 : CONDUIRE -->
+    <div class="comp-card" style="--card-accent: var(--comp5)">
+      <div class="comp-num">Compétence 05</div>
+      <div class="comp-title">Conduire</div>
+      <div class="comp-subtitle">Satisfaire les besoins des utilisateurs avec une démarche projet</div>
+      <div class="comp-body">
+        <p>La gestion de projet a été une composante transversale de toutes mes expériences. En BUT 3, la conduite de projet prend une dimension supplémentaire : il ne s'agit plus seulement de livrer un résultat technique, mais de gérer la relation avec un commanditaire réel.</p>
+        <p>Chez Panam'arket, j'ai dû recadrer le périmètre du projet plusieurs fois : la demande initiale (dashboard stocks) s'est complexifiée avec la réalité du terrain (caisses en PDF, ruptures non tracées). J'ai appliqué une démarche itérative : maquettes Figma, validation gérant, développement, retours utilisateurs.</p>
+        <p>La Nuit de l'Info a été une autre expérience intense de conduite sous contrainte extrême : 11 personnes, une nuit, un livrable.</p>
+        <p><strong>Acquis :</strong> Savoir dire non à une feature hors scope est une compétence à part entière.</p>
+      </div>
+      <div class="tag-row">
+        <span class="tag" style="color: var(--comp5); border-color: var(--comp5)">Agile / Itératif</span>
+        <span class="tag" style="color: var(--comp5); border-color: var(--comp5)">Figma</span>
+        <span class="tag" style="color: var(--comp5); border-color: var(--comp5)">Gestion backlog</span>
+        <span class="tag" style="color: var(--comp5); border-color: var(--comp5)">UX Research</span>
+      </div>
+      <div class="eval-row">
+        <div class="eval-item">
+          <div class="eval-label">SAÉ clé</div>
+          Panam'arket · Nuit de l'Info
+        </div>
+        <div class="eval-item">
+          <div class="eval-label">Niveau</div>
+          Conduite de A à Z avec commanditaire
+        </div>
+      </div>
+    </div>
+
+    <!-- C6 : COLLABORER -->
+    <div class="comp-card" style="--card-accent: var(--comp6)">
+      <div class="comp-num">Compétence 06</div>
+      <div class="comp-title">Collaborer</div>
+      <div class="comp-subtitle">Travailler dans une équipe informatique</div>
+      <div class="comp-body">
+        <p>La collaboration est une compétence que j'ai développée à travers des contextes très différents : équipe projet académique, équipe IT en entreprise, et responsabilités associatives au BDE.</p>
+        <p>En tant que Secrétaire et Responsable Communication du BDE de l'IUT, j'ai coordiné des événements impliquant des dizaines d'étudiants, géré la communication externe et tenu à jour les registres de l'association. Ce rôle m'a appris à structurer l'information pour qu'elle soit utilisable par tous.</p>
+        <p>En entreprise (CFP Group), j'ai travaillé dans une équipe réduite avec une forte autonomie. La communication avec les non-techniciens — RH, managers — pour expliquer des contraintes IT a été un apprentissage déterminant.</p>
+        <p><strong>Acquis :</strong> Documenter son travail pour les autres est un acte de collaboration en soi.</p>
+      </div>
+      <div class="tag-row">
+        <span class="tag" style="color: var(--comp6); border-color: var(--comp6)">Git / GitHub</span>
+        <span class="tag" style="color: var(--comp6); border-color: var(--comp6)">Communication</span>
+        <span class="tag" style="color: var(--comp6); border-color: var(--comp6)">Documentation</span>
+        <span class="tag" style="color: var(--comp6); border-color: var(--comp6)">BDE IUT</span>
+      </div>
+      <div class="eval-row">
+        <div class="eval-item">
+          <div class="eval-label">SAÉ clé</div>
+          CFP Group · BDE · TRACKSTAR
+        </div>
+        <div class="eval-item">
+          <div class="eval-label">Niveau</div>
+          À l'aise inter-équipes et non-tech
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- STAGE -->
+<section id="stage">
+  <div class="section-num">03 — Expérience professionnelle</div>
+  <h2>Stage BUT 3 :<br>Panam'arket</h2>
+
+  <div class="stage-block">
+    <div class="stage-header">
+      <div>
+        <div class="stage-company">Panam'arket</div>
+        <div style="font-size:13px; color:var(--muted); margin-top:4px">Épicerie urbaine parisienne — Paris, France</div>
+      </div>
+      <span class="stage-period">Avril – Juillet 2026</span>
+    </div>
+
+    <div class="prose" style="font-size:13px">
+      <p>Panam'arket est une petite épicerie de quartier parisienne sans outil numérique de suivi des stocks. Ma mission : concevoir et développer une <strong>Progressive Web App (PWA)</strong> permettant aux gérants de suivre les approvisionnements, détecter les ruptures et visualiser les KPIs clés via un dashboard.</p>
+    </div>
+
+    <ul class="mission-list">
+      <li>Conception de l'architecture full-stack : React (PWA) + Supabase + PostgreSQL</li>
+      <li>Développement du module de suivi des stocks avec alertes de rupture en temps réel</li>
+      <li>Pipeline de traitement des tickets de caisse PDF (pdf.js + parsing regex TypeScript)</li>
+      <li>Dashboard de visualisation des KPIs : rotations, tendances, alertes</li>
+      <li>Sécurisation des accès (Row Level Security, authentification Supabase)</li>
+      <li>Tests utilisateurs avec le gérant, itérations et recadrages de périmètre</li>
+    </ul>
+  </div>
+
+  <h3 style="font-family:'Syne',sans-serif; font-size:16px; margin-bottom:8px; color:var(--accent3)">Liens avec les compétences BUT</h3>
+
+  <div class="prose" style="font-size:13px; margin-bottom:32px">
+    <p>Ce stage mobilise l'ensemble des six compétences du référentiel BUT Informatique. <strong>Réaliser</strong> : développement complet de la PWA. <strong>Optimiser</strong> : pipeline de parsing PDF performant sur des lots de fichiers. <strong>Administrer</strong> : configuration Supabase, sécurité RLS, déploiement. <strong>Gérer</strong> : conception du schéma de données, relations, index. <strong>Conduire</strong> : gestion itérative avec un commanditaire non-technique. <strong>Collaborer</strong> : communication régulière, documentation du code et des décisions.</p>
+  </div>
+
+  <h3 style="font-family:'Syne',sans-serif; font-size:16px; margin-bottom:20px; color:var(--accent3)">Regard critique</h3>
+
+  <div class="retro-grid">
+    <div class="retro-card green">
+      <div class="retro-label">✓ Points forts</div>
+      <ul>
+        <li>Autonomie complète sur le produit</li>
+        <li>Livrable fonctionnel utilisé en prod</li>
+        <li>Bonne communication gérant-développeur</li>
+        <li>Architecture propre et évolutive</li>
+      </ul>
+    </div>
+    <div class="retro-card orange">
+      <div class="retro-label">⚠ Points de vigilance</div>
+      <ul>
+        <li>Sous-estimation du parsing PDF</li>
+        <li>Tests automatisés insuffisants</li>
+        <li>Documentation tardive du schéma DB</li>
+        <li>Recadrages de scope trop réactifs</li>
+      </ul>
+    </div>
+    <div class="retro-card blue">
+      <div class="retro-label">★ Bonnes surprises</div>
+      <ul>
+        <li>RLS Supabase très puissant</li>
+        <li>PWA adoptée immédiatement</li>
+        <li>Gérant très impliqué dans les tests</li>
+      </ul>
+    </div>
+    <div class="retro-card purple">
+      <div class="retro-label">→ Si c'était à refaire</div>
+      <ul>
+        <li>Cadrer le scope dès la semaine 1</li>
+        <li>Écrire les tests en parallèle</li>
+        <li>Prototyper le parsing PDF plus tôt</li>
+        <li>Documenter les décisions techniques</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CONCLUSION -->
+<section id="conclusion">
+  <div class="section-num">04 — Bilan</div>
+  <h2>Synthèse finale<br>du cursus</h2>
+
+  <div class="prose">
+    <p>
+      Ces trois années de BUT Informatique ont constitué une transformation profonde de mon rapport à la technique et au projet. Je suis entré dans ce cursus avec une culture de la santé et un intérêt pour les données ; j'en sors avec des outils concrets pour agir sur ces deux champs simultanément.
+    </p>
+    <p>
+      Le portfolio que vous lisez est lui-même une preuve de cette évolution : construit avec des technologies web, structuré autour d'un référentiel de compétences, il illustre ma capacité à transformer une contrainte académique en livrable professionnel.
+    </p>
+  </div>
+
+  <div class="conclusion-grid">
+    <div class="concl-block">
+      <div class="concl-icon">◆</div>
+      <div class="concl-title">Points forts identifiés</div>
+      <ul>
+        <li>Full-stack React / Supabase opérationnel</li>
+        <li>Capacité à livrer en contexte réel</li>
+        <li>Profil cross-disciplinaire santé + tech</li>
+        <li>Autonomie et prise d'initiative</li>
+        <li>Communication inter-profils</li>
+      </ul>
+    </div>
+    <div class="concl-block">
+      <div class="concl-icon">△</div>
+      <div class="concl-title">Points de vigilance</div>
+      <ul>
+        <li>Tests automatisés à renforcer</li>
+        <li>Documentation à écrire tôt</li>
+        <li>Gestion du scope sous pression</li>
+        <li>DevOps / CI-CD à approfondir</li>
+        <li>Algorithmique avancée (compétitive)</li>
+      </ul>
+    </div>
+    <div class="concl-block">
+      <div class="concl-icon">→</div>
+      <div class="concl-title">Acquis pour la suite</div>
+      <ul>
+        <li>Cadrer le périmètre dès le début</li>
+        <li>Tests en parallèle du dev</li>
+        <li>Docs architecture = acte de collaboration</li>
+        <li>Master Informatique Biomédicale</li>
+        <li>Alternance dev logiciel santé numérique</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider" style="margin-top:56px"></div>
+
+  <div class="prose" style="margin-top:32px">
+    <p>
+      La trajectoire que j'imagine pour la suite est claire : intégrer le Master Santé Publique — Informatique Biomédicale à Sorbonne Paris Nord, en alternance, pour continuer à construire à l'intersection du soin et du logiciel. Ce portfolio est une étape. La prochaine est de le mettre au service d'une mission qui compte.
+    </p>
+  </div>
+</section>
+
+<footer>
+  <p>Kelvin Uthayakumar · BUT 3 Informatique · Sorbonne Paris Nord · 2025–2026</p>
+  <p style="margin-top:8px">
+    <a href="https://kelvinuthaya.github.io/portfolio/">Portfolio</a> &nbsp;·&nbsp;
+    <a href="https://www.linkedin.com/in/kelvinuthaya">LinkedIn</a> &nbsp;·&nbsp;
+    <a href="https://github.com/kelvinuthaya">GitHub</a> &nbsp;·&nbsp;
+    <a href="mailto:kelvinutk@gmail.com">kelvinutk@gmail.com</a>
+  </p>
+  <p style="margin-top:16px; opacity:0.4">Document à remettre avant le 14 juin 2026 · pascale.hellegouarch@gmail.com</p>
+</footer>
+
+</body>
+</html>
